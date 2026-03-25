@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Shop Inventory</title>
+  <style>
+    body { font-family: Arial; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .item { border: 1px solid #ccc; padding: 10px; }
+    .sold { background: #f8d7da; }
+  </style>
+</head>
+<body>
+
+<h1>My Inventory</h1>
+
+<input type="text" id="search" placeholder="Search..." onkeyup="searchItem()">
+
+<div class="grid" id="items"></div>
+
+<script>
+let products = [
+  {name: "Shoes", price: 2000, status: "available"},
+  {name: "Jacket", price: 3500, status: "sold"}
+];
+
+function displayItems(list) {
+  let container = document.getElementById("items");
+  container.innerHTML = "";
+  list.forEach(p => {
+    container.innerHTML += `
+      <div class="item ${p.status}">
+        <h3>${p.name}</h3>
+        <p>${p.price} ETB</p>
+        <p>${p.status}</p>
+      </div>
+    `;
+  });
+}
+
+function searchItem() {
+  let value = document.getElementById("search").value.toLowerCase();
+  let filtered = products.filter(p => p.name.toLowerCase().includes(value));
+  displayItems(filtered);
+}
+
+displayItems(products);
+</script>
+
+</body>
+</html>
